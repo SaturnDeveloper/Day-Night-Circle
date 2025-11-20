@@ -5,11 +5,13 @@ public class TimeService
 {
     readonly TimeSettings settings;
     DateTime currentTime;
+    int month = 0;
     int day = 0;
     int previousHour = -1;
     readonly TimeSpan sunriseTime;
     readonly TimeSpan sunsetTime;
 
+    public String ThisMonth = "Spring";
     public DateTime CurrentTime => currentTime;
     public int Day => day;
 
@@ -20,6 +22,7 @@ public class TimeService
     readonly Observable<bool> isDayTime;
     readonly Observable<int> currentHour;
     readonly Observable<int> currentDay;
+    readonly Observable<int> currentMonth;
 
     public TimeService(TimeSettings settings)
     {
@@ -31,6 +34,7 @@ public class TimeService
         isDayTime = new Observable<bool>(IsDayTime());
         currentHour = new Observable<int>(currentTime.Hour);
         currentDay = new Observable<int>(day);
+        currentMonth = new Observable<int>(month);
 
         isDayTime.ValueChanged += d => (d ? OnSunrise : OnSunset)?.Invoke();
         currentHour.ValueChanged += _ => OnHourChange?.Invoke();
@@ -54,6 +58,20 @@ public class TimeService
         }
 
         previousHour = CurrentTime.Hour;
+    }
+
+    public void UpdateMonth()
+    {
+        if(day == settings.daysPerMonth + 1)
+        {
+            day = 0;
+            currentDay.Value = day;
+            if (currentMonth.Value != settings.months.Length-1)
+                currentMonth.Value++;
+            else currentMonth.Value = 0;
+
+            ThisMonth = settings.months[currentMonth.Value];
+        }
     }
 
     public float CalculateSunAngle()

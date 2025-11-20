@@ -8,6 +8,7 @@ public class TimeManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timeText;
     [SerializeField] TextMeshProUGUI dayText;
+    [SerializeField] TextMeshProUGUI monthText;
 
     [SerializeField] Light sun;
     [SerializeField] Light moon;
@@ -62,6 +63,7 @@ public class TimeManager : MonoBehaviour
     {
         Debug.Log(service.CurrentTime.Hour);
         UpdateDayUI();
+        UpdateMonthUI();
         UpdateTimeOfDay();
         RotateSun();
         UpdateLightSettings();
@@ -88,6 +90,17 @@ public class TimeManager : MonoBehaviour
 
 
     }
+
+    void UpdateMonthUI()
+    {
+        service.UpdateMonth();
+        Debug.Log(service.ThisMonth);
+        monthText.text = service.ThisMonth;
+
+
+
+    }
+
     void UpdateSkyBlend()
     {
         float dotProduct = Vector3.Dot(sun.transform.forward, Vector3.up);

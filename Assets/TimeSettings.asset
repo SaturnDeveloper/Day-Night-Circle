@@ -16,3 +16,9 @@ MonoBehaviour:
   startHour: 12
   sunriseHour: 6
   sunsetHour: 18
+  daysPerMonth: 0
+  months:
+  - Spring
+  - Summer
+  - Autumn
+  - Winter
