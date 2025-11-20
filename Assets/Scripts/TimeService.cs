@@ -1,6 +1,7 @@
 using System;
+using Unity.Android.Gradle.Manifest;
 using UnityEngine;
-
+using Action = System.Action;
 public class TimeService
 {
     readonly TimeSettings settings;
@@ -18,13 +19,16 @@ public class TimeService
     public event Action OnSunrise = delegate { };
     public event Action OnSunset = delegate { };
     public event Action OnHourChange = delegate { };
+    public event Action<int> OnDayChanged;
 
     readonly Observable<bool> isDayTime;
     readonly Observable<int> currentHour;
     readonly Observable<int> currentDay;
     readonly Observable<int> currentMonth;
 
-    public TimeService(TimeSettings settings)
+     EventManager eventManager;
+
+    public TimeService(TimeSettings settings, EventManager eventManager)
     {
         this.settings = settings;
         currentTime = DateTime.Now.Date + TimeSpan.FromHours(settings.startHour);
@@ -36,8 +40,11 @@ public class TimeService
         currentDay = new Observable<int>(day);
         currentMonth = new Observable<int>(month);
 
+        OnDayChanged += (day) => CheckEventsForDay(day);
+
         isDayTime.ValueChanged += d => (d ? OnSunrise : OnSunset)?.Invoke();
         currentHour.ValueChanged += _ => OnHourChange?.Invoke();
+        this.eventManager = eventManager;
     }
 
     public void UpdateTime(float deltaTime)
@@ -54,6 +61,9 @@ public class TimeService
         {
             day++;
             currentDay.Value = day;
+            if (day == settings.daysPerMonth + 1)
+                OnDayChanged?.Invoke(0);
+            else OnDayChanged?.Invoke(day);
             Debug.Log($"Neuer Tag: {day}");
         }
 
@@ -71,6 +81,20 @@ public class TimeService
             else currentMonth.Value = 0;
 
             ThisMonth = settings.months[currentMonth.Value];
+        }
+    }
+
+    void CheckEventsForDay(int day)
+    {
+        Debug.Log($"Tag geändert: {day}. Suche Events...");
+
+        foreach (var e in eventManager.events)
+        {
+            if (e != null && day >= e.startDay && day <= e.endDay)
+            {
+                e.eventFunction?.Invoke();
+                Debug.Log($"Event für {e.month} ausgelöst");
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 using System;
-using UnityEngine;
 using TMPro;
+using UnityEditor.PackageManager;
+using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
@@ -27,6 +28,9 @@ public class TimeManager : MonoBehaviour
     ColorAdjustments colorAdjustments;
 
     [SerializeField] TimeSettings timeSettings;
+    [SerializeField] EventManager eventManager;
+
+
 
 
     public event Action OnSunrise
@@ -50,12 +54,11 @@ public class TimeManager : MonoBehaviour
     TimeService service;
     void Start()
     {
-        service = new TimeService(timeSettings);
+        service = new TimeService(timeSettings, eventManager);
         volume.profile.TryGet(out colorAdjustments);
         OnSunrise += () => Debug.Log("Sunrise");
         OnSunset += () => Debug.Log("Sunset");
         OnHourChange += () => Debug.Log("Hour change");
-
         initialDialRotation = dial.rotation.eulerAngles.z;
     }
 
@@ -85,6 +88,9 @@ public class TimeManager : MonoBehaviour
     {
         service.UpdateDay();
         Debug.Log(service.Day.ToString());
+
+        if(dayText.text != "Day: " + service.Day.ToString())
+
         dayText.text = "Day: " + service.Day.ToString();
         
 
@@ -100,6 +106,8 @@ public class TimeManager : MonoBehaviour
 
 
     }
+
+    
 
     void UpdateSkyBlend()
     {
@@ -135,4 +143,7 @@ public class TimeManager : MonoBehaviour
             timeText.text = service.CurrentTime.ToString("hh:mm");
         }
     }
+
+
+
 }

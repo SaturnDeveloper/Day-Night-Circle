@@ -496,7 +496,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 700113823}
-  - component: {fileID: 700113822}
   - component: {fileID: 700113824}
   m_Layer: 0
   m_Name: TimeManager
@@ -505,18 +504,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &700113822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 700113821}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b09cc739a15814f93749d60bf47f84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &700113823
 Transform:
   m_ObjectHideFlags: 0
@@ -599,6 +586,7 @@ MonoBehaviour:
   skyboxMaterial: {fileID: 0}
   dial: {fileID: 0}
   timeSettings: {fileID: 11400000, guid: 579839798ad53164e808fa2871daee8c, type: 2}
+  eventManager: {fileID: 1181347785}
 --- !u!1 &789420635
 GameObject:
   m_ObjectHideFlags: 0
@@ -888,6 +876,7 @@ GameObject:
   - component: {fileID: 1031150933}
   - component: {fileID: 1031150932}
   - component: {fileID: 1031150931}
+  - component: {fileID: 1031150934}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -956,6 +945,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1031150934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031150930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4434f03e0de9c694d99b81544a977bdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myFunctions:
+    m_PersistentCalls:
+      m_Calls:
+      - {m_Target: {fileID: 1181347785}, m_TargetAssemblyTypeName: EventManager, Assembly-CSharp, m_MethodName: WinterEvent, m_Mode: 1, m_Arguments: {m_ObjectArgument: {fileID: 0}, m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine, m_IntArgument: 0, m_FloatArgument: 0, m_StringArgument: , m_BoolArgument: 0}, m_CallState: 2}
+    m_CallsDirty: 1
 --- !u!1 &1101145861
 GameObject:
   m_ObjectHideFlags: 0
@@ -1201,6 +1207,108 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1151383755}
   m_CullTransparentMesh: 1
+--- !u!1 &1181347784
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1181347786}
+  - component: {fileID: 1181347785}
+  m_Layer: 0
+  m_Name: EventManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1181347785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181347784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f51df29cd9c9ed409ce499b7c4952ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  events:
+  - name: Halloween
+    startDay: 30
+    endDay: 30
+    month: Autumn
+    eventFunction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1181347785}
+          m_TargetAssemblyTypeName: EventManager, Assembly-CSharp
+          m_MethodName: WinterEvent
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: Moon Festival
+    startDay: 5
+    endDay: 10
+    month: Fall
+    eventFunction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1181347785}
+          m_TargetAssemblyTypeName: EventManager, Assembly-CSharp
+          m_MethodName: WinterEvent
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: Moon Festival
+    startDay: 0
+    endDay: 0
+    month: Summer
+    eventFunction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1181347785}
+          m_TargetAssemblyTypeName: EventManager, Assembly-CSharp
+          m_MethodName: WinterEvent
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!4 &1181347786
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181347784}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 476.80212, y: 236.77867, z: 274.45605}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1503663629
 GameObject:
   m_ObjectHideFlags: 0
@@ -1589,3 +1697,4 @@ SceneRoots:
   - {fileID: 700113823}
   - {fileID: 1503663633}
   - {fileID: 1031150933}
+  - {fileID: 1181347786}
