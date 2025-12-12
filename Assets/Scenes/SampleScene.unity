@@ -183,7 +183,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: d60029e22a610274baaf415ebb59b540, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -223,10 +223,9 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.9993, y: -1.93, z: -5.4673}
-  m_LocalScale: {x: 9.784605, y: 1, z: 8.507913}
+  m_LocalScale: {x: 24.504564, y: 1, z: 148.94626}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1101145862}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &330585543
@@ -835,7 +834,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: d60029e22a610274baaf415ebb59b540, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -957,11 +956,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4434f03e0de9c694d99b81544a977bdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myFunctions:
-    m_PersistentCalls:
-      m_Calls:
-      - {m_Target: {fileID: 1181347785}, m_TargetAssemblyTypeName: EventManager, Assembly-CSharp, m_MethodName: WinterEvent, m_Mode: 1, m_Arguments: {m_ObjectArgument: {fileID: 0}, m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine, m_IntArgument: 0, m_FloatArgument: 0, m_StringArgument: , m_BoolArgument: 0}, m_CallState: 2}
-    m_CallsDirty: 1
 --- !u!1 &1101145861
 GameObject:
   m_ObjectHideFlags: 0
@@ -990,12 +984,12 @@ Transform:
   m_GameObject: {fileID: 1101145861}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.33640185, z: -0, w: 0.9417185}
-  m_LocalPosition: {x: -0.866, y: 0.41999996, z: 1.202}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -7.474168, y: -2.1044, z: 4.75921}
+  m_LocalScale: {x: 9.27209, y: 2.2646742, z: 9.020425}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 954024095}
-  m_Father: {fileID: 202791230}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 39.316, z: 0}
 --- !u!65 &1101145863
 BoxCollider:
@@ -1041,7 +1035,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: d60029e22a610274baaf415ebb59b540, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1698,3 +1692,4 @@ SceneRoots:
   - {fileID: 1503663633}
   - {fileID: 1031150933}
   - {fileID: 1181347786}
+  - {fileID: 1101145862}
