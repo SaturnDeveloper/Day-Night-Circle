@@ -30,7 +30,7 @@ public class TimeManager : MonoBehaviour
     [SerializeField] TimeSettings timeSettings;
     [SerializeField] EventManager eventManager;
 
-
+    public bool IsReady => service != null;
 
 
     public event Action OnSunrise
@@ -52,9 +52,15 @@ public class TimeManager : MonoBehaviour
     }
 
     TimeService service;
-    void Start()
+
+    void Awake()
     {
         service = new TimeService(timeSettings, eventManager);
+
+    }
+
+    void Start()
+    {
         volume.profile.TryGet(out colorAdjustments);
         OnSunrise += () => Debug.Log("Sunrise");
         OnSunset += () => Debug.Log("Sunset");
