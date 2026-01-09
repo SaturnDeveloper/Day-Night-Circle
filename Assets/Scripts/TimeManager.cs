@@ -16,17 +16,18 @@ public class TimeManager : MonoBehaviour
     [SerializeField] AnimationCurve lightIntensityCurve;
     [SerializeField] float maxSunIntensity = 1;
     [SerializeField] float maxMoonIntensity = 0.5f;
+    [SerializeField] float skyBlendSpeed = 2f;
 
     [SerializeField] Color dayAmbientLight;
     [SerializeField] Color nightAmbientLight;
     [SerializeField] Volume volume;
     [SerializeField] Material skyboxMaterial;
-    [SerializeField] Material daySky;
 
     ColorAdjustments colorAdjustments;
 
     [SerializeField] TimeSettings timeSettings;
     [SerializeField] EventManager eventManager;
+
 
     public bool IsReady => service != null;
 
@@ -63,6 +64,7 @@ public class TimeManager : MonoBehaviour
         OnSunrise += () => Debug.Log("Sunrise");
         OnSunset += () => Debug.Log("Sunset");
         OnHourChange += () => Debug.Log("Hour change");
+        RenderSettings.skybox = skyboxMaterial;
     }
 
     void Update()
@@ -115,8 +117,11 @@ public class TimeManager : MonoBehaviour
 
     void UpdateSkyBlend(float blend)
     {
-        //skyboxMaterial.SetFloat("_Blend", blend);
-        RenderSettings.skybox.Lerp(skyboxMaterial, daySky, blend);
+        if (skyboxMaterial == null) return;
+        // Clamp to [0,1] just in case
+        Debug.Log("Blend: " + blend);
+        blend = Mathf.Clamp01(blend);
+        skyboxMaterial.SetFloat("_Blend", blend);
     }
 
     void UpdateLightSettings()
@@ -127,10 +132,14 @@ public class TimeManager : MonoBehaviour
         sun.intensity = Mathf.Lerp(0, maxSunIntensity, lightIntensity);
         moon.intensity = Mathf.Lerp(maxMoonIntensity, 0, lightIntensity);
 
+        float blendedIntensity = Mathf.Pow(lightIntensity, 0.6f);
+        float smoothBlend = Mathf.Lerp(skyboxMaterial.GetFloat("_Blend"), blendedIntensity, Time.deltaTime * skyBlendSpeed);
+        UpdateSkyBlend(smoothBlend);
+
         if (colorAdjustments == null) return;
         colorAdjustments.colorFilter.value = Color.Lerp(nightAmbientLight, dayAmbientLight, lightIntensity);
 
-        UpdateSkyBlend(lightIntensity);
+       
     }
 
     void RotateSun()
