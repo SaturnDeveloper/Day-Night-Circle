@@ -105,8 +105,10 @@ public class WheatGrowth : MonoBehaviour
                 break;
             case WheatState.Growing:
                 if (growthTimer >= timeToMature)
+                {
                     ChangedState(WheatState.Mature);
-                DisableScript();
+                    DisableScript();
+                }  
                 break;
         }
     }

@@ -21,9 +21,7 @@ public class TimeManager : MonoBehaviour
     [SerializeField] Color nightAmbientLight;
     [SerializeField] Volume volume;
     [SerializeField] Material skyboxMaterial;
-
-    [SerializeField] RectTransform dial;
-    float initialDialRotation;
+    [SerializeField] Material daySky;
 
     ColorAdjustments colorAdjustments;
 
@@ -65,7 +63,6 @@ public class TimeManager : MonoBehaviour
         OnSunrise += () => Debug.Log("Sunrise");
         OnSunset += () => Debug.Log("Sunset");
         OnHourChange += () => Debug.Log("Hour change");
-        initialDialRotation = dial.rotation.eulerAngles.z;
     }
 
     void Update()
@@ -75,8 +72,9 @@ public class TimeManager : MonoBehaviour
         UpdateMonthUI();
         UpdateTimeOfDay();
         RotateSun();
-        UpdateLightSettings();
-    
+        UpdateLightSettings(); 
+
+
         //UpdateSkyBlend();
 
 
@@ -115,11 +113,10 @@ public class TimeManager : MonoBehaviour
 
     
 
-    void UpdateSkyBlend()
+    void UpdateSkyBlend(float blend)
     {
-        float dotProduct = Vector3.Dot(sun.transform.forward, Vector3.up);
-        float blend = Mathf.Lerp(0, 1, lightIntensityCurve.Evaluate(dotProduct));
-        skyboxMaterial.SetFloat("_Blend", blend);
+        //skyboxMaterial.SetFloat("_Blend", blend);
+        RenderSettings.skybox.Lerp(skyboxMaterial, daySky, blend);
     }
 
     void UpdateLightSettings()
@@ -132,13 +129,15 @@ public class TimeManager : MonoBehaviour
 
         if (colorAdjustments == null) return;
         colorAdjustments.colorFilter.value = Color.Lerp(nightAmbientLight, dayAmbientLight, lightIntensity);
+
+        UpdateSkyBlend(lightIntensity);
     }
 
     void RotateSun()
     {
         float rotation = service.CalculateSunAngle();
         sun.transform.rotation = Quaternion.AngleAxis(rotation, Vector3.right);
-        dial.rotation = Quaternion.Euler(0, 0, rotation + initialDialRotation);
+     
     }
 
     void UpdateTimeOfDay()
