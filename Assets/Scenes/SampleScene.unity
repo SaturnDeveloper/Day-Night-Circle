@@ -5037,11 +5037,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1503663633}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 870, y: -28}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -156, y: -28}
   m_SizeDelta: {x: 200, y: 50}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &1151383757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8557,7 +8557,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: d24cc81b3eb001041a1fbd6b757bc980, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: d60029e22a610274baaf415ebb59b540, type: 2}
+      objectReference: {fileID: 2100000, guid: cafd93d917b6aa44c8b2479f99f29358, type: 2}
     - target: {fileID: 919132149155446097, guid: d24cc81b3eb001041a1fbd6b757bc980, type: 3}
       propertyPath: m_Name
       value: Ground
