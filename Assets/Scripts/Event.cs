@@ -10,4 +10,5 @@ public class Event
     public int endDay;
     public string month;
     public UnityEvent eventFunction;
+    public UnityEvent endEventFunction;
 }

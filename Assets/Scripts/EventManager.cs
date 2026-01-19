@@ -1,23 +1,20 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
     public Event[] events;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public GameObject MoonBanner;
+
+    public void MoonFestivalEvent()
     {
-        
+        MoonBanner.SetActive(true);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void EndMoonFestivalEvent()
     {
-        
-    }
-
-    public void WinterEvent()
-    {
-        Debug.Log("yay");
+        MoonBanner.SetActive(false);
     }
 }
+

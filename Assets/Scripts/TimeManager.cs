@@ -69,9 +69,9 @@ public class TimeManager : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(service.CurrentTime.Hour);
-        UpdateDayUI();
         UpdateMonthUI();
+        UpdateDayUI();
+
         UpdateTimeOfDay();
         RotateSun();
         UpdateLightSettings(); 
@@ -93,7 +93,6 @@ public class TimeManager : MonoBehaviour
     void UpdateDayUI()
     {
         service.UpdateDay();
-        Debug.Log(service.Day.ToString());
 
         if(dayText.text != "Day: " + service.Day.ToString())
 
@@ -106,7 +105,6 @@ public class TimeManager : MonoBehaviour
     void UpdateMonthUI()
     {
         service.UpdateMonth();
-        Debug.Log(service.ThisMonth);
         monthText.text = service.ThisMonth;
 
 
@@ -119,7 +117,6 @@ public class TimeManager : MonoBehaviour
     {
         if (skyboxMaterial == null) return;
         // Clamp to [0,1] just in case
-        Debug.Log("Blend: " + blend);
         blend = Mathf.Clamp01(blend);
         skyboxMaterial.SetFloat("_Blend", blend);
     }

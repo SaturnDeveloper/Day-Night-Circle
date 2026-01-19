@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 using Action = System.Action;
@@ -40,7 +40,7 @@ public class TimeService
         currentDay = new Observable<int>(day);
         currentMonth = new Observable<int>(month);
 
-        OnDayChanged += (day) => CheckEventsForDay(day);
+        OnDayChanged += (day) => CheckEventsForDay(day, ThisMonth);
 
         isDayTime.ValueChanged += d => (d ? OnSunrise : OnSunset)?.Invoke();
         currentHour.ValueChanged += _ => OnHourChange?.Invoke();
@@ -56,23 +56,33 @@ public class TimeService
 
     public void UpdateDay()
     {
-        Debug.Log("uPDATE day");
-        if (CurrentTime.Hour == 0 && !isDayTime.Value && previousHour != CurrentTime.Hour)
+        if (CurrentTime.Hour == 0 && previousHour != 0)
         {
             day++;
+
+            // Monatswechsel prÃ¼fen
+            if (day > settings.daysPerMonth)
+            {
+                day = 1; // Tag 1 des neuen Monats
+                currentMonth.Value = (currentMonth.Value + 1) % settings.months.Length;
+                ThisMonth = settings.months[currentMonth.Value];
+            }
+
             currentDay.Value = day;
-            if (day == settings.daysPerMonth + 1)
-                OnDayChanged?.Invoke(0);
-            else OnDayChanged?.Invoke(day);
-            Debug.Log($"Neuer Tag: {day}");
+
+            // DayChanged Event feuern
+            OnDayChanged?.Invoke(day);
+
+            Debug.Log($"Neuer Tag: {day}, Monat: {ThisMonth}");
         }
 
         previousHour = CurrentTime.Hour;
     }
 
+
     public void UpdateMonth()
     {
-        if(day == settings.daysPerMonth + 1)
+        if(day == settings.daysPerMonth+1)
         {
             day = 0;
             currentDay.Value = day;
@@ -84,19 +94,27 @@ public class TimeService
         }
     }
 
-    void CheckEventsForDay(int day)
+    void CheckEventsForDay(int day, string thismonth)
     {
-        Debug.Log($"Tag geändert: {day}. Suche Events...");
+        Debug.Log($"Tag geÃ¤ndert: {day}. Suche Events...");
 
         foreach (var e in eventManager.events)
         {
-            if (e != null && day >= e.startDay && day <= e.endDay)
-            {
-                e.eventFunction?.Invoke();
-                Debug.Log($"Event für {e.month} ausgelöst");
-            }
+            if (e == null) continue;
+
+            Debug.Log(thismonth);
+            if (day >= e.startDay && day <= e.endDay && thismonth == e.month)
+                {
+                    e.eventFunction?.Invoke();
+                }
+                else
+                {
+                    e.endEventFunction?.Invoke();
+                }
         }
     }
+
+    
 
     public float CalculateSunAngle()
     {
