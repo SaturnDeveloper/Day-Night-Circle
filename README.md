@@ -17,6 +17,9 @@ This project is a time- and event-driven system for Unity.
 - Triggers events on day change, sunrise and sunset
 ### EventManager
 - Starts events based on day and month
+
+![Screenshot](Screenshots/Screenshot%2026-01-21%172748.png)
+
 ### Wheat Growth System
 Demonstrates time-driven gameplay using the TimeManager:
 - Wheat has three states: Seeded, Growing, Mature
